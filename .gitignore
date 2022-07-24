@@ -1,4 +1,6 @@
-*.txt
+
+token.txt
+db_url.txt
+
 *.p
-.txt
 .p
