@@ -4,3 +4,8 @@ def read_token():
     token_file = open('token.txt','r')
     token = token_file.read()
     return token
+
+def read_db_url():
+    db = open('db_url.txt','r')
+    url = db.read()
+    return url
