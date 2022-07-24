@@ -3,21 +3,18 @@ from func.read_token import read_token
 # Import functions ******************************
 
 # Import modules ********************************
-import discord
-from discord.ext import commands
-help('modules')
-from discord.utils import get
+import nextcord
+from nextcord import Interaction
+from nextcord.ext import commands
 # Import modules ********************************
 
 # Global definitions ****************************
-intents = discord.Intents.default()
+intents = nextcord.Intents.all()
 intents.members = True
 
 client = commands.Bot(command_prefix='!', intents=intents)
-slash = SlashCommand(client, sync_commands=True)
 bot_token = read_token()
 
-bot = discord.ext.commands.Bot
 
 
 @client.event
@@ -30,9 +27,15 @@ async def on_message(message):
     # This will allow for commands to work while the bot parses messages.
     await client.process_commands(message)
 
-@slash.slash(name="Ping", description="pings")
-async def ping(ctx):
-    await ctx.send("Pong")
+server_id = 1000330768846962799
+
+@client.slash_command(name = "test", description = "testing nextcord slash commands", guild_ids=[server_id])
+async def test(interaction: Interaction):
+    await interaction.response.send_message("test done.")
+
+@client.slash_command(name = "test1", description = "1 testing nextcord slash commands", guild_ids=[server_id])
+async def test1(interaction: Interaction, variable: str, var2: str):
+    await interaction.response.send_message(variable)
 
 # Run the bot.
 client.run(bot_token)
