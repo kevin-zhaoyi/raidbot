@@ -6,6 +6,6 @@ def read_token():
     return token
 
 def read_db_url():
-    db = open('db_url.txt','r')
-    url = db.read()
+    db_f = open('db_url.txt','r')
+    url = db_f.read()
     return url

@@ -9,6 +9,7 @@ from nextcord import Interaction, SlashOption
 from nextcord.ext import commands
 import pickle
 import pymongo
+import os
 # Import modules ********************************
 
 # Global definitions ****************************
@@ -185,3 +186,4 @@ def save_raid_info():
 
 # Run the bot.
 client.run(read_token())
+
