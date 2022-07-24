@@ -107,6 +107,30 @@ async def create_raid(
 
 
 
+
+@client.slash_command(
+    name = "delete_raid",
+    description = "Deletes a raid",
+    guild_ids=[server_id]
+    )
+async def delete_raid(
+    interaction: Interaction,
+    raid_id: int
+):
+    global raids
+
+    if raid_id < 0 or raid_id >= len(raids):
+        await interaction.response.send_message("That raid does not exist.")
+    else:
+        raids.pop(raid_id)
+        await interaction.response.send_message("Raid has been removed.")
+        save_raid_info()             
+
+
+
+
+
+
 @client.slash_command(
     name = "view_raids",
     description = "Views the raids",
@@ -116,7 +140,8 @@ async def view_raids(interaction: Interaction):
     await interaction.response.send_message("Here are the raids listed.")
     for raid_idx in range(len(raids)):
         await interaction.channel.send(f"**id: {raid_idx}**\n{str(raids[raid_idx])}\n\n")
-
+    if len(raids) == 0:
+        await interaction.channel.send("No raids listed right now.")
 
 
 
@@ -151,13 +176,11 @@ async def apply(
     
 def load_raid_info():
     global raids, raid_col
-    #raids = pickle.load(open("./pkl/raids.p", "rb"))
-    #raids = pickle.loads()
     raids = pickle.loads(raid_col.find_one()["data"])
-    print(raids)
+
 def save_raid_info():
     global raids, raid_col
-    pickle.dump(raids, open("./pkl/raids.p", "wb"))
+    pickle.dump(raids, open("./pkl/raids.p", "wb")) #backup local
     raid_col.update_one(query_tag, {"$set": {"data": pickle.dumps(raids)}})
 
 # Run the bot.

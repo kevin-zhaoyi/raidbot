@@ -24,18 +24,10 @@ class Raid:
     def apply(self, discord_id, ign, subclass):
         # enforce unique user in raids
         already_enrolled = 0
-        
-        if is_sup(subclass):
-            for i in self.sup:
-                if i[0] == discord_id:
-                    already_enrolled = 1
-                    break
-        else: 
-            for i in self.dps:
-                if i[0] == discord_id:
-                    already_enrolled = 1
-                    break
-            
+        for i in self.sup + self.dps:
+            if i[0] == discord_id:
+                already_enrolled = 1
+                break
 
         
         if already_enrolled:
@@ -43,12 +35,12 @@ class Raid:
         else:
             if is_sup(subclass):
                 if len(self.sup) < self.MAX_SUP:
-                    self.sup.append((discord_id, ign))
+                    self.sup.append((discord_id, ign, subclass))
                 else:
                     return -1 # Error raid full
             else:
                 if len(self.dps < self.MAX_DPS):
-                    self.dps.append((discord_id, ign))
+                    self.dps.append((discord_id, ign, subclass))
                 else:
                     return -1 # Error raid full
 
