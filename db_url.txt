@@ -1,1 +1,0 @@
-mongodb://fishythep:9dW4TxWG8lcJxYoJ@cluster0-shard-00-00.hdkn7.mongodb.net:27017,cluster0-shard-00-01.hdkn7.mongodb.net:27017,cluster0-shard-00-02.hdkn7.mongodb.net:27017/?ssl=true&replicaSet=atlas-crv8c8-shard-0&authSource=admin&retryWrites=true&w=majority
