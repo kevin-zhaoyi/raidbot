@@ -18,7 +18,9 @@ intents.members = True
 
 client = commands.Bot(command_prefix='!', intents=intents)
 
-db_client = pymongo.MongoClient(read_db_url())
+#db_client = pymongo.MongoClient(read_db_url())
+db_client = pymongo.MongoClient(os.environ["DB_URL"])
+
 db = db_client.test
 
 
@@ -185,5 +187,5 @@ def save_raid_info():
     raid_col.update_one(query_tag, {"$set": {"data": pickle.dumps(raids)}})
 
 # Run the bot.
-client.run(read_token())
-
+#client.run(read_token())
+client.run(os.environ["DISCORD_TOKEN"])
